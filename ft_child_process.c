@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 22:50:04 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/17 23:56:10 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:18:19 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_child_process_1(t_prgrm *vars)
 	close(vars->file_2);
 	close(vars->fd_write_pipe);
 	// ft_printf("Still going.\n");
+	vars->i--;
 	execve(vars->cmd_paths[0], vars->cmd_args_ptr[0], vars->envp);
 	perror("execve 1: ");
 }

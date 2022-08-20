@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:56 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/17 23:40:37 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:24:52 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,25 @@ typedef struct s_prgrm
 	int		fd_read_pipe;
 	int		fd_write_pipe;
 	int		i;
+	int		*fds;
+	int		file_test;
+	int		file_test2;
 }				t_prgrm;
 
-// First try functions:
+// Mandatory part functions:
 
 void	ft_syntax_check(t_prgrm *vars);
 void	ft_pipex(t_prgrm *vars);
 void	ft_child_process_1(t_prgrm *vars);
 void	ft_child_process_2(t_prgrm *vars);
 void	ft_parent_process(t_prgrm *vars);
+
+// BONUS functions
+
+void	ft_child_process(t_prgrm *vars, int i);
+void	ft_pipex_bonus(t_prgrm *vars);
+void	ft_pipex_bonus_second_try(t_prgrm *vars);
+void	ft_pipex_bonus_third_try(t_prgrm *vars);
+void	ft_close_fds(t_prgrm *vars);
 
 #endif

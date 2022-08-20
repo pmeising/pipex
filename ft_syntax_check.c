@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:29:13 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/17 23:38:01 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:00:21 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ char	*ft_find_path(t_prgrm *vars)
 char	**ft_find_paths(char *path)
 {
 	char	**paths;
+	char	*path_temp;
 	int		i;
 
 	i = 0;
 	paths = ft_split(path, ':');
 	while (paths[i] != NULL)
 	{
-		paths[i] = ft_strjoin(paths[i], "/");
+		path_temp = ft_strjoin(paths[i], "/");
+		free(paths[i]);
+		paths[i] = path_temp;
 		i++;
 	}
 	return (paths);
@@ -103,12 +106,11 @@ void	ft_syntax_check(t_prgrm *vars)
 	int		i;
 
 	i = 0;
-	vars->cmd_paths = calloc(3000, sizeof(char));
-	vars->cmds = NULL;
+	vars->cmd_paths = malloc(3000);
 	if (vars->argc != 5)
-		perror("Invalid input syntax; number of args: ");
-	vars->file_1 = open(vars->argv[1], O_RDWR);
-	vars->file_2 = open(vars->argv[vars->argc - 1], O_RDWR);
+		perror("Invalid input syntax; number of args: "); // Need an entirely new function for this, since the input can vary in size now.
+	vars->file_1 = open(vars->argv[1], O_CREAT | O_RDWR, 0777); // chmod access all. 0777 is an octal 
+	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR, 0777); // chmod access all. 0777 is an octal
 	if (vars->file_1 == -1)
 		perror("File 1 couldn't be opened: ");
 	if (vars->file_2 == -1)
@@ -119,7 +121,16 @@ void	ft_syntax_check(t_prgrm *vars)
 	{
 		vars->cmd_paths[i] = ft_locate_binaries(vars, vars->argv[i + 2], paths, i);
 		vars->cmd_args_ptr[i] = vars->main_commands;
+		ft_printf("command %d: %s\n", i, vars->cmd_args_ptr[i][0]);
+		ft_printf("command %d: %s\n", i, vars->cmd_args_ptr[i][1]);
 		i++;
 	}
 	vars->cmd_paths[i] = NULL;
+	i = 0;
+	while (paths[i] != NULL)
+	{
+		free (paths[i]);
+		i++;
+	}
+	free (paths);
 }

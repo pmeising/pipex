@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 22:37:53 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/17 23:40:03 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:27:26 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	ft_pipex(t_prgrm *vars)
 	int	pipe_check;
 
 	pipe_check = pipe(fds);
-	vars->fd_read_pipe = fds[0];
-	vars->fd_write_pipe = fds[1];
 	if (pipe_check == -1)
 		perror("Pipe failed: ");
+	vars->fd_read_pipe = fds[0];
+	vars->fd_write_pipe = fds[1];
 	pid = fork();
 	if (pid == 0)
 	{

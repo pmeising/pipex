@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/18 12:18:11 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:27:33 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 void	ft_initialize(t_prgrm *vars)
 {
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	vars.i = argc - 3;
 	ft_initialize(&vars);
 	ft_syntax_check(&vars);
-	// ft_printf("Executables found.\n");
-	ft_pipex(&vars);
+	ft_printf("Executables found.\n");
+	ft_pipex_bonus_third_try(&vars);
 	ft_free(&vars);
 }

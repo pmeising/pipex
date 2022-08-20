@@ -6,11 +6,13 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/15 22:51:43 by pmeising          #+#    #+#              #
-#    Updated: 2022/08/15 22:55:11 by pmeising         ###   ########.fr        #
+#    Updated: 2022/08/20 16:25:11 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= pipex
+
+BONUS		:= pipex_bonus
 
 CC			:= gcc -g
 
@@ -23,9 +25,13 @@ HEADER		:= pipex.h
 SRCS		:= main.c ft_syntax_check.c ft_pipex.c ft_parent_process.c \
 			ft_child_process.c \
 
+B_SRCS		:= ./bonus/main_bonus.c ft_syntax_check.c ./bonus/ft_pipex_bonus.c ./bonus/ft_bonus_for_real_now.c \
+
 OBJS		:= ${SRCS:.c=.o}
 
-LIBFT = ./libft/libft.a
+B_OBJS		:= ${B_SRCS:.c=.o}
+
+LIBFT 		:= ./libft/libft.a
 
 .PHONY:		all clean fclean re
 
@@ -37,14 +43,19 @@ all:		${NAME}
 $(LIBFT):
 			make all -C ./libft_lib
 
+$(BONUS):	$(LIBFT) $(B_OBJS)
+			$(CC) $(B_OBJS) $(LIBFT) -o $(NAME)
+
 
 $(NAME):	$(LIBFT) $(OBJS)
 			$(CC) $(OBJS) $(LIBFT) -o $(NAME)
 
+bonus:		${BONUS}
+
 re:			fclean all
 
 clean:
-			$(RM) $(OBJS)
+			$(RM) $(OBJS) $(B_OBJS)
 
 fclean:		clean
-			$(RM) $(NAME)
+			$(RM) $(NAME) $(BONUS)
