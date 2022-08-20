@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:56 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/20 16:24:52 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:57:40 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ void	ft_pipex(t_prgrm *vars);
 void	ft_child_process_1(t_prgrm *vars);
 void	ft_child_process_2(t_prgrm *vars);
 void	ft_parent_process(t_prgrm *vars);
+void	ft_child_process(t_prgrm *vars, int i);
+void	ft_free(t_prgrm *vars);
+
+// ERROR handling
+
+void	ft_error(t_prgrm *vars, int ecode, int index);
+void	ft_error_free(t_prgrm *vars, int ecode);
 
 // BONUS functions
 
-void	ft_child_process(t_prgrm *vars, int i);
+void	ft_syntax_check_bonus(t_prgrm *vars);
 void	ft_pipex_bonus(t_prgrm *vars);
-void	ft_pipex_bonus_second_try(t_prgrm *vars);
-void	ft_pipex_bonus_third_try(t_prgrm *vars);
-void	ft_close_fds(t_prgrm *vars);
 
 #endif

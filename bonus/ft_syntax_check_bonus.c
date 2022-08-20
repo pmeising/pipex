@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_syntax_check.c                                  :+:      :+:    :+:   */
+/*   ft_syntax_check_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:29:13 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/20 23:04:15 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:43:38 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 // The program receives 4 arguments. Like so: "./pipex file1 cmd1 cmd2 file2"
 // This syntax check function tries to open the arguments 1 and 4 which are 
@@ -25,15 +25,15 @@
 void	ft_files_check(t_prgrm *vars)
 {
 	if (access(vars->argv[1], F_OK) == -1)
-		ft_error(vars, 4, -1);
+		ft_error(vars, 4);
 	vars->file_1 = open(vars->argv[1], O_RDWR);
 	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777); // chmod access all. 0777 is an octal
 	if (vars->file_1 == -1 && vars->file_2 == -1)
-		ft_error(vars, 1, -1);
+		ft_error(vars, 1);
 	else if (vars->file_1 == -1)
-		ft_error(vars, 2, -1);
+		ft_error(vars, 2);
 	else if (vars->file_2 == -1)
-		ft_error(vars, 3, -1);
+		ft_error(vars, 3);
 	
 }
 
@@ -104,28 +104,19 @@ char	*ft_locate_binaries(t_prgrm *vars, char *cmd, char **paths, int j)
 		i++;
 	}
 	if (paths[i] == NULL)
-	{
-		i = 0;
-		while (paths[i] != NULL)
-		{
-			free (paths[i]);
-			i++;
-		}
-		free (paths);
-			ft_error(vars, 6, j);
-	}
+		perror("Command not found: ");
 	return (NULL);
 }
 
-void	ft_syntax_check(t_prgrm *vars)
+void	ft_syntax_check_bonus(t_prgrm *vars)
 {
 	char	*path;
 	char	**paths;
 	int		i;
 
 	i = 0;
-	if (vars->argc != 5)
-		ft_error(vars, 5, -1);
+	if (vars->argc < 5)
+		ft_error(vars, 5);
 	ft_files_check(vars);
 	vars->cmd_paths = malloc(3000);
 	path = ft_find_path(vars); // Stores the PATH variable of env
