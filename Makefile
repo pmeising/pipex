@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/15 22:51:43 by pmeising          #+#    #+#              #
-#    Updated: 2022/08/21 17:45:46 by pmeising         ###   ########.fr        #
+#    Updated: 2022/08/21 19:46:41 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ RM			:= rm -f
 HEADER		:= pipex.h
 
 SRCS		:= main.c ft_syntax_check.c ft_pipex.c ft_parent_process.c \
-			ft_child_process.c ft_error.c \
+			ft_child_process.c ft_error.c ft_helper.c \
 
-B_SRCS		:= ./bonus/main_bonus.c ./bonus/ft_syntax_check_bonus.c ./bonus/ft_pipex_bonus.c ft_error.c \
+B_SRCS		:= ./bonus/main_bonus.c ./bonus/ft_syntax_check_bonus.c \
+				./bonus/ft_pipex_bonus.c ft_error.c ft_helper.c \
 
 OBJS		:= ${SRCS:.c=.o}
 

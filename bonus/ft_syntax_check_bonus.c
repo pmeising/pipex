@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:29:13 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 19:33:19 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 20:00:12 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,22 @@
 // represents a valid command with valid flags and syntaxes.
 // The finding of the binary executables is done in here. If the binary does
 // not exist, it means, that the command is not valid. 
+// l.28: chmod access all. 0777 is an octal
+// l.140:  // Stores the PATH variable of env
+// l.141: // Stores each directory in a 2D array
+// l. 142:  // Limits the amount of calls to locate the binary to the amount
+// of cmds in the function call arguments.
 
 void	ft_files_check(t_prgrm *vars)
 {
-	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777); // chmod access all. 0777 is an octal
+	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC,
+			0777);
 	if (access(vars->argv[1], F_OK) == -1)
 		ft_error(vars, 4);
 	vars->file_1 = open(vars->argv[1], O_RDWR);
 	if (vars->file_1 == -1 && vars->file_2 == -1)
 	{
-		ft_printf("%s: ", vars->argv[1]);
-		ft_printf("No such file or directory\n");
-		ft_printf("%s: ", vars->argv[vars->argc - 1]);
-		ft_printf("No such file or directory\n");
+		ft_helper_0(vars);
 		vars->file_1_nok = 1;
 		vars->file_2_nok = 1;
 	}
@@ -69,7 +72,7 @@ char	*ft_find_path(t_prgrm *vars)
 			break ;
 		i++;
 	}
-	return(vars->envp[i]);
+	return (vars->envp[i]);
 }
 
 // In this function I split the string into several directories by the de-
@@ -101,18 +104,12 @@ char	**ft_find_paths(char *path)
 char	*ft_locate_binaries(t_prgrm *vars, char *cmd, char **paths, int j)
 {
 	int		i;
-	int		len;
 	char	*temp;
 
 	i = 0;
-	vars->main_commands = ft_split(cmd, ' ');
-	len = ft_strlen(vars->main_commands[0]);
-	if (vars->main_commands[1] != NULL)
-		vars->arguments[j] = &cmd[len + 1];
-	else
-		vars->arguments[j] = NULL;
+	ft_helper_1(vars, cmd, j);
 	if (access(vars->main_commands[0], F_OK | X_OK) == 0)
-		return(ft_strdup(vars->main_commands[0]));
+		return (ft_strdup(vars->main_commands[0]));
 	else
 	{
 		while (paths[i] != NULL)
@@ -144,26 +141,17 @@ void	ft_syntax_check_bonus(t_prgrm *vars)
 		ft_error(vars, 5);
 	ft_files_check(vars);
 	vars->cmd_paths = malloc(10000);
-	path = ft_find_path(vars); // Stores the PATH variable of env
-	paths = ft_find_paths(path); // Stores each directory in a 2D array
-	while ((i + 1) <= vars->argc - 3) // Limits the amount of calls to locate the binary to the amount of cmds in the function call arguments.
+	path = ft_find_path(vars);
+	paths = ft_find_paths(path);
+	while ((i + 1) <= vars->argc - 3)
 	{
-		vars->cmd_paths[i] = ft_locate_binaries(vars, vars->argv[i + 2], paths, i);
+		vars->cmd_paths[i] = ft_locate_binaries(vars, vars->argv[i + 2],
+				paths, i);
 		if (vars->eflag == 1)
 			free(vars->cmd_paths[i]);
 		vars->cmd_args_ptr[i] = vars->main_commands;
 		i++;
 	}
 	vars->cmd_paths[i] = NULL;
-	i = 0;
-	while (paths[i] != NULL)
-	{
-		free (paths[i]);
-		i++;
-	}
-	free (paths);
-	if (vars->eflag == 1)
-		ft_error(vars, 0);
-	else if(vars->eflag == 2)
-		ft_error(vars, 7);
+	ft_helper_2(vars, paths);
 }

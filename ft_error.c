@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:46:38 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 19:19:36 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 19:42:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ void	ft_free_cmd_not_found_1(t_prgrm *vars) // more than one of commands is inva
 		free(vars->cmd_args_ptr[i]);
 		i++;
 	}
-	// if (vars->cmd_paths[0] != NULL)
-	free(vars->cmd_paths[0]);
+	i = 0;
+	while (i < vars->i)
+	{
+		free(vars->cmd_paths[i]);
+		i++;
+	}
 	free(vars->cmd_paths);
 	free(vars->arguments);
 	free(vars->cmd_args_ptr);

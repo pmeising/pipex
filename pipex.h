@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:56 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 18:47:03 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 20:09:02 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	ft_child_process_2(t_prgrm *vars);
 void	ft_parent_process(t_prgrm *vars);
 void	ft_child_process(t_prgrm *vars, int i);
 void	ft_free(t_prgrm *vars);
+void	ft_helper_0(t_prgrm *vars);
+void	ft_helper_1(t_prgrm *vars, char *cmd, int j);
+void	ft_helper_2(t_prgrm *vars, char **paths);
+void	ft_helper_3(t_prgrm *vars, int *fds_old, int *fds_new, int i);
+void	ft_helper_4(int *fds_new, int *fds_old);
 
 // ERROR handling
 

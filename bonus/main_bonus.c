@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 19:31:38 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 20:03:29 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_free(t_prgrm *vars)
 
 	i = 0;
 	j = 0;
-	while(i < vars->i)
+	while (i < vars->i)
 	{
 		j = 0;
 		while (vars->cmd_args_ptr[i][j] != NULL)
