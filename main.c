@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/20 21:38:56 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:47:32 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	ft_initialize(t_prgrm *vars)
 {
 	vars->cmd_args_ptr = malloc(100);
 	vars->arguments = malloc(100);
+	vars->eflag = 0;
+	vars->file_1_nok = 0;
+	vars->file_2_nok = 0;
 }
 
 void	ft_free(t_prgrm *vars)

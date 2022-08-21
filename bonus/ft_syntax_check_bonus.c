@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:29:13 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/20 22:43:38 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/21 19:33:19 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,33 @@
 
 void	ft_files_check(t_prgrm *vars)
 {
+	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777); // chmod access all. 0777 is an octal
 	if (access(vars->argv[1], F_OK) == -1)
 		ft_error(vars, 4);
 	vars->file_1 = open(vars->argv[1], O_RDWR);
-	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777); // chmod access all. 0777 is an octal
 	if (vars->file_1 == -1 && vars->file_2 == -1)
-		ft_error(vars, 1);
+	{
+		ft_printf("%s: ", vars->argv[1]);
+		ft_printf("No such file or directory\n");
+		ft_printf("%s: ", vars->argv[vars->argc - 1]);
+		ft_printf("No such file or directory\n");
+		vars->file_1_nok = 1;
+		vars->file_2_nok = 1;
+	}
 	else if (vars->file_1 == -1)
-		ft_error(vars, 2);
+	{
+		ft_printf("%s: ", vars->argv[1]);
+		ft_printf("No such file or directory\n");
+		vars->file_1_nok = 1;
+	}
 	else if (vars->file_2 == -1)
-		ft_error(vars, 3);
-	
+	{
+		ft_printf("%s: ", vars->argv[vars->argc - 1]);
+		ft_printf("No such file or directory\n");
+		vars->file_2_nok = 1;
+	}
+	if (vars->file_1 == -1 || vars->file_2 == -1)
+		vars->eflag = 1;
 }
 
 // Here I find the correct variable from the "env" command and store it in a 
@@ -95,16 +111,25 @@ char	*ft_locate_binaries(t_prgrm *vars, char *cmd, char **paths, int j)
 		vars->arguments[j] = &cmd[len + 1];
 	else
 		vars->arguments[j] = NULL;
-	while (paths[i] != NULL)
+	if (access(vars->main_commands[0], F_OK | X_OK) == 0)
+		return(ft_strdup(vars->main_commands[0]));
+	else
 	{
-		temp = ft_strjoin(paths[i], vars->main_commands[0]);
-		if (access(temp, F_OK | X_OK) == 0)
-			return (temp);
-		free (temp);
-		i++;
+		while (paths[i] != NULL)
+		{
+			temp = ft_strjoin(paths[i], vars->main_commands[0]);
+			if (access(temp, F_OK | X_OK) == 0)
+				return (temp);
+			free (temp);
+			i++;
+		}
 	}
-	if (paths[i] == NULL)
-		perror("Command not found: ");
+	ft_printf("%s: ", vars->argv[j + 2]);
+	if (ft_strchr(vars->argv[j + 2], '/') == NULL)
+		ft_printf("command not found\n");
+	else
+		ft_printf("No such file or directory\n");
+	vars->eflag = 2;
 	return (NULL);
 }
 
@@ -118,12 +143,14 @@ void	ft_syntax_check_bonus(t_prgrm *vars)
 	if (vars->argc < 5)
 		ft_error(vars, 5);
 	ft_files_check(vars);
-	vars->cmd_paths = malloc(3000);
+	vars->cmd_paths = malloc(10000);
 	path = ft_find_path(vars); // Stores the PATH variable of env
 	paths = ft_find_paths(path); // Stores each directory in a 2D array
 	while ((i + 1) <= vars->argc - 3) // Limits the amount of calls to locate the binary to the amount of cmds in the function call arguments.
 	{
 		vars->cmd_paths[i] = ft_locate_binaries(vars, vars->argv[i + 2], paths, i);
+		if (vars->eflag == 1)
+			free(vars->cmd_paths[i]);
 		vars->cmd_args_ptr[i] = vars->main_commands;
 		i++;
 	}
@@ -135,4 +162,8 @@ void	ft_syntax_check_bonus(t_prgrm *vars)
 		i++;
 	}
 	free (paths);
+	if (vars->eflag == 1)
+		ft_error(vars, 0);
+	else if(vars->eflag == 2)
+		ft_error(vars, 7);
 }
