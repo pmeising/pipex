@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 18:47:32 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:54:03 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	vars.envp = envp;
 	vars.i = argc - 3;
 	ft_initialize(&vars);
-	ft_syntax_check(&vars);
+	ft_syntax_check_bonus(&vars);
 	ft_pipex(&vars);
 	ft_free(&vars);
 }

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:56 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 20:09:02 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:57:29 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_prgrm
 	int		argc;
 	char	**argv;
 	char	**envp;
-	char	**cmds; // "ls -la"
-	char	**cmd_paths; // "/usr/bin/cat/"
-	char	**main_commands; // "ls" "cat" without any command arguments.r
+	char	**cmds;
+	char	**cmd_paths;
+	char	**main_commands;
 	char	**arguments;
 	char	**cmd_args;
 	char	***cmd_args_ptr;
@@ -56,7 +56,8 @@ void	ft_helper_0(t_prgrm *vars);
 void	ft_helper_1(t_prgrm *vars, char *cmd, int j);
 void	ft_helper_2(t_prgrm *vars, char **paths);
 void	ft_helper_3(t_prgrm *vars, int *fds_old, int *fds_new, int i);
-void	ft_helper_4(int *fds_new, int *fds_old);
+void	ft_helper_4(t_prgrm *vars, int i, int *fds_old, int *fds_new);
+void	ft_helper_5(t_prgrm *vars, int i);
 
 // ERROR handling
 

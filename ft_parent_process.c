@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 22:49:50 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/17 23:16:01 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:50:40 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_parent_process(t_prgrm *vars)
 	}
 	else
 	{
-		// ft_printf("In parent.\n");
 		close(vars->file_1);
 		close(vars->file_2);
 		close(vars->fd_read_pipe);

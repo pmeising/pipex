@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 19:44:52 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 20:08:43 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:50:14 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_helper_1(t_prgrm *vars, char *cmd, int j)
 
 void	ft_helper_2(t_prgrm *vars, char **paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (paths[i] != NULL)
@@ -63,10 +63,31 @@ void	ft_helper_3(t_prgrm *vars, int *fds_old, int *fds_new, int i)
 	}
 }
 
-void	ft_helper_4(int *fds_new, int *fds_old)
+void	ft_helper_4(t_prgrm *vars, int i, int *fds_old, int *fds_new)
 {
-	fds_new[0] = -1;
-	fds_new[1] = -1;
-	fds_old[0] = -1;
-	fds_old[1] = -1;
+	if ((vars->i - i) > 0)
+	{
+		dup2((fds_old[0]), STDIN_FILENO);
+		close(fds_old[0]);
+		close(fds_old[1]);
+	}
+	else
+	{
+		dup2(vars->file_1, STDIN_FILENO);
+		close(vars->file_1);
+	}
+	if ((vars->i - i) < (vars->i - 1))
+	{
+		close(fds_new[0]);
+		dup2(fds_new[1], STDOUT_FILENO);
+		close(fds_new[1]);
+	}
+	else
+	{
+		close(fds_new[0]);
+		close(fds_new[1]);
+		dup2(vars->file_2, STDOUT_FILENO);
+		close(vars->file_2);
+	}
+	ft_helper_5(vars, i);
 }

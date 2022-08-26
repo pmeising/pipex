@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:21:44 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 20:10:09 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/08/26 13:46:49 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_pipex_bonus(t_prgrm *vars)
 	int	pid;
 	int	pipe_check;
 
-	ft_helper_4(fds_new, fds_old);
 	i = vars->i;
 	while (i > 0)
 	{
@@ -49,38 +48,7 @@ void	ft_pipex_bonus(t_prgrm *vars)
 		if (pid == -1)
 			perror("Fork failed.");
 		if (pid == 0)
-		{
-			ft_helper_5();
-			if ((vars->i - i) > 0)
-			{
-				dup2((fds_old[0]), STDIN_FILENO);
-				close(fds_old[0]);
-				close(fds_old[1]);
-			}
-			else
-			{
-				dup2(vars->file_1, STDIN_FILENO);
-				close(vars->file_1);
-			}
-			if ((vars->i - i) < (vars->i - 1))
-			{
-				close(fds_new[0]);
-				dup2(fds_new[1], STDOUT_FILENO);
-				close(fds_new[1]);
-			}
-			else
-			{
-				close(fds_new[0]);
-				close(fds_new[1]);
-				dup2(vars->file_2, STDOUT_FILENO);
-				close(vars->file_2);
-			}
-			execve(vars->cmd_paths[(vars->i - i)],
-				vars->cmd_args_ptr[(vars->i - i)], vars->envp);
-			perror("Execve didnt't execute.");
-			exit (0);
-		}
-		else
+			ft_helper_4(vars, i, fds_old, fds_new);
 		ft_helper_3(vars, fds_old, fds_new, i);
 		i--;
 	}
