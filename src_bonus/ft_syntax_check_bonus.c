@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_syntax_check.c                                  :+:      :+:    :+:   */
+/*   ft_syntax_check_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 19:29:13 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/26 13:55:53 by pmeising         ###   ########.fr       */
+/*   Created: 2022/09/25 17:26:42 by pmeising          #+#    #+#             */
+/*   Updated: 2022/09/25 17:56:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 // The program receives 4 arguments. Like so: "./pipex file1 cmd1 cmd2 file2"
 // This syntax check function tries to open the arguments 1 and 4 which are 
@@ -31,7 +31,7 @@ void	ft_files_check(t_prgrm *vars)
 {
 	vars->file_2 = open(vars->argv[vars->argc - 1], O_CREAT | O_RDWR | O_TRUNC,
 			0777);
-	if (access(vars->argv[1], F_OK) == -1)
+	if ((vars->argv[1], F_OK) == -1)
 		ft_error(vars, 4);
 	vars->file_1 = open(vars->argv[1], O_RDWR);
 	if (vars->file_1 == -1 && vars->file_2 == -1)

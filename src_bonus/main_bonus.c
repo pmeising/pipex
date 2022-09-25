@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/26 13:54:03 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 21:06:38 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	ft_initialize(t_prgrm *vars)
 {
@@ -46,6 +46,8 @@ void	ft_free(t_prgrm *vars)
 		free (vars->cmd_paths[i]);
 		i++;
 	}
+	if (vars->here_doc == 1)
+		unlink("temp.txt");
 	free (vars->cmd_paths);
 	free (vars->arguments);
 }
@@ -59,7 +61,17 @@ int	main(int argc, char **argv, char **envp)
 	vars.envp = envp;
 	vars.i = argc - 3;
 	ft_initialize(&vars);
-	ft_syntax_check_bonus(&vars);
-	ft_pipex(&vars);
+	ft_heredoc_check(&vars);
+	if (vars.here_doc == 0)
+	{
+		ft_syntax_check_bonus(&vars);
+		ft_pipex_bonus(&vars);
+	}
+	else
+	{
+		vars.i = vars.argc - 4;
+		ft_heredoc(&vars);
+		ft_pipex_heredoc(&vars);
+	}
 	ft_free(&vars);
 }

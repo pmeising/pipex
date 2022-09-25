@@ -6,11 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:21:44 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/26 13:46:49 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:55:39 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../inc/pipex.h"
 
 // I can't reuse the same pipe, as writing and reading to the same pipe is
 // not allowed.

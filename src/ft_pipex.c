@@ -6,11 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 22:37:53 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/18 18:27:26 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:06:47 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 // I was able to pipe information from the child process to the parent process
 // by writing into fds[1] and reading in the parent process in fds[0]. This way

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/21 20:03:29 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:06:47 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../inc/pipex.h"
 
 void	ft_initialize(t_prgrm *vars)
 {
@@ -54,12 +54,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_prgrm	vars;
 
+	if (argc != 5)
+	{
+		ft_printf("Mandatory part only supports 2 commands.\n");
+		exit (0);
+	}
 	vars.argc = argc;
 	vars.argv = argv;
 	vars.envp = envp;
 	vars.i = argc - 3;
 	ft_initialize(&vars);
 	ft_syntax_check_bonus(&vars);
-	ft_pipex_bonus(&vars);
+	ft_pipex(&vars);
 	ft_free(&vars);
 }

@@ -6,11 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 22:50:04 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/26 13:49:24 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:06:47 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	ft_child_process_1(t_prgrm *vars)
 {

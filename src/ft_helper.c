@@ -6,11 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 19:44:52 by pmeising          #+#    #+#             */
-/*   Updated: 2022/08/26 13:50:14 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:52:24 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./pipex.h"
+#include "./../inc/pipex.h"
 
 void	ft_helper_0(t_prgrm *vars)
 {
@@ -73,8 +73,16 @@ void	ft_helper_4(t_prgrm *vars, int i, int *fds_old, int *fds_new)
 	}
 	else
 	{
-		dup2(vars->file_1, STDIN_FILENO);
-		close(vars->file_1);
+		if (vars->here_doc == 1)
+		{
+			dup2(vars->fd_temp_file_heredoc, STDIN_FILENO);
+			close(vars->fd_temp_file_heredoc);
+		}
+		else
+		{
+			dup2(vars->file_1, STDIN_FILENO);
+			close(vars->file_1);
+		}
 	}
 	if ((vars->i - i) < (vars->i - 1))
 	{
